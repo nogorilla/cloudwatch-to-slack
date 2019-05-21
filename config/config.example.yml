@@ -1,0 +1,9 @@
+environment:
+  WEBHOOK_URL: https://hooks.slack.com/services/xxxxx/
+aws:
+  role: 'arn:aws:iam::xxx:role/slack-role'
+  vpc:
+    securityGroupIds:
+      - sg-xxxxxxx
+    subnetIds:
+      - subnet-xxxxxxx

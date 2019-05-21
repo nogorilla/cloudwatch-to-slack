@@ -1,0 +1,21 @@
+service: cloudwatch-slack-notifiy
+
+# The `provider` block defines where your service will be deployed
+provider:
+  name: aws
+  runtime: nodejs8.10
+  environment: ${file(./config/${opt:stage, self:provider.stage}.yml):environment}
+  role: ${file(./config/${opt:stage, self:provider.stage}.yml):aws.role}
+  vpc: ${file(./config/${opt:stage, self:provider.stage}.yml):aws.vpc}
+  deploymentBucket:
+    name: osa-core-deploymentbucket-${opt:region}
+
+# The `functions` block defines what code to deploy
+functions:
+  cloudwatch-slack-notifiy:
+    handler: handler.handler
+    timeout: 300
+    events:
+      - sns:
+          topicName: cw-to-slack-${opt:stage, self:provider.stage}
+          displayName: CW to Slack
