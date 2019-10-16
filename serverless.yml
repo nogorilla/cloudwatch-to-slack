@@ -3,7 +3,7 @@ service: cloudwatch-slack-notifiy
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   environment: ${file(./config/${opt:stage, self:provider.stage}.yml):environment}
   role: ${file(./config/${opt:stage, self:provider.stage}.yml):aws.role}
   vpc: ${file(./config/${opt:stage, self:provider.stage}.yml):aws.vpc}
